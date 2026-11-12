@@ -1,0 +1,27 @@
+name: Validação do Projeto
+on:   
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "iniciando o Workflow"
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Listando arquivos
+        run: ls ${{github.workspace}}
+      - name: Status
+        run: echo "${{job.status}}"
+      - name: Informações da execução
+        run: |
+          echo "Repositório: ${{ github.repository }}"
+          echo "Usuário que iniciou: ${{ github.actor }}"
+      - name: Verificar arquivo
+        run: |
+          if [ -f "README.md" ]; then
+            echo "O arquivo existe."
+          else
+            echo "O arquivo não existe."
+            exit 1
+          fi
+          
